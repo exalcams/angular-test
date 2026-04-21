@@ -22,7 +22,7 @@ pipeline {
         stage('Deploy to IIS') {
             steps {
                 // Adjust physical path to your IIS site root
-                bat 'xcopy /s /y "dist\\angular-test\\*" "C:\\inetpub\\wwwroot\\angular-test"'
+                bat 'xcopy /s /y "dist\\angular-test\\*" "C:\\Deployment"'
             }
         }
     }
