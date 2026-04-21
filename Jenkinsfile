@@ -1,27 +1,27 @@
 pipeline {
     agent any
     tools {
-        nodejs 'node' // Name must match the one in Global Tool Configuration
+        nodejs 'node' // Name configured in Global Tool Configuration
     }
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/exalcams/angular-test'
+                git branch: 'main', url: 'https://github.com/exalcams/angular-test'
             }
         }
         stage('Install Dependencies') {
             steps {
-                bat 'npm install' // 'bat' is used for Windows command prompt
+                bat 'npm install' // Use 'sh' on Linux
             }
         }
-        stage('Build Angular App') {
+        stage('Build') {
             steps {
-                bat 'npm run build --prod'
+                bat 'npm run build --configuration=production'
             }
         }
-        stage('Deploy') {
+        stage('Deploy to IIS') {
             steps {
-                // Example: Deploy to local IIS directory
+                // Adjust physical path to your IIS site root
                 bat 'xcopy /s /y "dist\\angular-test\\*" "C:\\inetpub\\wwwroot\\angular-test"'
             }
         }
